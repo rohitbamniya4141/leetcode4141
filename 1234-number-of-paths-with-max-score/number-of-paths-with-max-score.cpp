@@ -26,7 +26,7 @@ public:
                 long long mx = max(c1.first,max(c2.first, c3.first));
                 long long path = 0;
                 
-                if(mx!= -1 && mx == c1.first) path= (path + 0LL+c1.second)%mod;
+                if(mx!= -1 && mx == c1.first) path= (path + 0LL+c1.second)%(1000000007);
                 if(mx!= -1 && mx == c2.first) path = (path + 0LL+c2.second)%mod;
                 if(mx!= -1 && mx == c3.first) path = (path + 0LL+c3.second)%mod;
                 
