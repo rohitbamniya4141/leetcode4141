@@ -14,7 +14,7 @@ public:
         if(i >= j){
             return 0;
         }
-        if(ispalindrome(s, i, j)){
+        if(pal[i][j]){
             return 0;
         }
         if(dp[i] != -1) return dp[i];
