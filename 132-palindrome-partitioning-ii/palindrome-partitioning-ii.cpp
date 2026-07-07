@@ -10,14 +10,14 @@ public:
         return true;
     }
 
-    int solve(string&s, int i, int j, vector<vector<int>>&dp){
+    int solve(string&s, int i, int j, vector<int>&dp){
         if(i >= j){
             return 0;
         }
         if(ispalindrome(s, i, j)){
             return 0;
         }
-        if(dp[i][j] != -1) return dp[i][j];
+        if(dp[i] != -1) return dp[i];
         int ans = INT_MAX;
         for(int k = i; k <= j-1; k++){
             if(ispalindrome(s, i, k)){
@@ -25,10 +25,10 @@ public:
                 ans = min(ans, p2 + 1);
             }
         }
-        return dp[i][j] = ans;
+        return dp[i] = ans;
     }
     int minCut(string s) {
-        vector<vector<int>>dp(s.size(), vector<int>(s.size(), -1));
+        vector<int>dp(s.size(), -1);
         return solve(s, 0, s.size()-1, dp);
     }
 };
