@@ -11,28 +11,21 @@
  */
 class Solution {
 public:
-    int solve(TreeNode* root, unordered_map<TreeNode*, int>& dp){
-        if(root == nullptr) return 0;
+    pair<int,int>solve(TreeNode *root){
+        if(root == nullptr) return {0,0};
+        
+        auto left = solve(root->left);
+        auto right = solve(root->right);
         //pick
-        if(dp.find(root) != dp.end()){
-            return dp[root];
-        }
-        int c1 = root->val;
-        if(root->left){
-            c1 += (solve(root->left->left, dp) + solve(root->left->right, dp));
-        }
-        if(root->right){
-            c1 += (solve(root->right->left, dp) + solve(root->right->right, dp));
-        }
-
-        // dont pick
-
-        int c2 = solve(root->left, dp) + solve(root->right, dp);
-
-        return dp[root] = max(c1,c2);
+        
+        int c1 = root->val + left.second + right.second;
+        
+        int c2 = max(left.first, left.second) + max(right.first, right.second);
+        
+        return {c1,c2};
     }
     int rob(TreeNode* root) {
-        unordered_map<TreeNode*, int>dp;
-        return solve(root, dp);
+         auto ans = solve(root);
+        return max(ans.first, ans.second);
     }
 };
