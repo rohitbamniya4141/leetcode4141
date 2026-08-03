@@ -4,7 +4,7 @@ With max_sal as(
     from Employee e
     join Department d
     on e.departmentId = d.id
-    group by d.name
+    group by e.departmentId, d.name
 )
 
 select m.deptname as Department, e.name as Employee, e.salary as Salary
