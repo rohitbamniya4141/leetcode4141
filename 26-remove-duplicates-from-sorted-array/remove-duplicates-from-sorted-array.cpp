@@ -2,28 +2,18 @@ class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
         int n = nums.size();
-        if(n == 1) return 1;
-        int st = 0;
-        int end = 1;
-        int cnt = 0;
-        unordered_map<int,int>mp;
-        for(int i = 0; i < n; i++){
-            mp[nums[i]]++;
-        }
-        while(st < n && end < n){
-            if(nums[st] == nums[end]){
-                while(end < n && nums[st] == nums[end]){
-                    end++;
-                }
-                st++;
-               if(end < n) nums[st] = nums[end];
-            }
-            else{
-                st++;
-                end++;
+
+        if(n == 0) return 0;
+
+        int i = 0;
+
+        for(int j = 1; j < n; j++){
+            if(nums[j] != nums[i]){
+                i++;
+                nums[i] = nums[j];
             }
         }
-        cnt = mp.size();
-        return cnt;
+
+        return i + 1;
     }
 };
