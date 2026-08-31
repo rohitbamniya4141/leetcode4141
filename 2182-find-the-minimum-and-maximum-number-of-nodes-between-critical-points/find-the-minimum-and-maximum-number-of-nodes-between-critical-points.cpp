@@ -11,32 +11,49 @@
 class Solution {
 public:
     vector<int> nodesBetweenCriticalPoints(ListNode* head) {
-        vector<int>points;
+        
         ListNode*c1 = head;
         ListNode*c2 = head->next;
         if(!c2->next) return {-1, -1};
         ListNode*c3 = c2->next;
         int i = 2;
+        bool perm = true;
+        int first = 0;
+        int curr = 100000;
+        int mini = INT_MAX, maxi = INT_MIN;
         while(c3){
             if(c3->val > c2->val && c1->val > c2->val){
-                points.push_back(i);
+                if(perm){
+                    first = i;
+                    perm = false;
+                }
+               else{
+                    mini = min(mini, i-curr);
+                    maxi = max(maxi, i - first);
+                }
+                 curr = i;
             }
             else if(c3->val < c2->val && c1->val < c2->val){
-                points.push_back(i);
+                if(perm){
+                    first = i;
+                    perm = false;
+                }
+                else{
+                    mini = min(mini, i-curr);
+                    maxi = max(maxi, i - first);
+    
+                }
+                 curr = i;
             }
             c3 = c3->next;
             c2 = c2->next;
             c1 = c1->next;
             i++;
         }
-        if(points.size() <= 1) return {-1, -1};
-        int mini = points[1]-points[0];
-        int maxi = points[points.size()-1]-points[0];
 
-        for(int i = 1; i < points.size(); i++){
-            mini = min(mini, points[i]-points[i-1]);
-            maxi = max(maxi, points[i]-points[0]);
-        }
+        if(mini == INT_MAX || maxi == INT_MIN) return {-1, -1};
+
+       
         return {mini, maxi};
     }
 };
